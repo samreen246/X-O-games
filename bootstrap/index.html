@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+        .cell{
+            border: 1px solid black;
+            height: 140px;
+        }
+        .row{
+            font-size: 80px;
+            text-align: center;
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body class="bg-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">&nbsp</div>
+            <div class="col-lg-4">
+                <div class="row mx-2">
+                    <div class="col-lg-4 col-4 cell" id="1" onclick="getdetails('1')"></div>
+                    <div class="col-lg-4 col-4 cell" id="2" onclick="getdetails('2')"></div>
+                    <div class="col-lg-4 col-4 cell" id="3" onclick="getdetails('3')" ></div>
+                    <div class="col-lg-4 col-4 cell" id="4" onclick="getdetails('4')"></div>
+                    <div class="col-lg-4 col-4 cell" id="5" onclick="getdetails('5')"></div>
+                    <div class="col-lg-4 col-4 cell" id="6" onclick="getdetails('6')"></div>
+                    <div class="col-lg-4 col-4 cell" id="7" onclick="getdetails('7')"></div>
+                    <div class="col-lg-4 col-4 cell" id="8" onclick="getdetails('8')"></div>
+                    <div class="col-lg-4 col-4 cell" id="9" onclick="getdetails('9')"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">&nbsp</div>
+        </div>
+    </div>
+
+    <script>
+        var count=1
+        function getdetails(myid){
+            if(document.getElementById(myid).innerHTML==""){
+                if(count%2==0){
+                    document.getElementById(myid).innerHTML="x"
+                }
+                else{
+                    document.getElementById(myid).innerHTML="o"
+                }
+                count++
+                checkWin();
+            }
+            else{
+                alert('not empty')
+            }
+        }
+
+        function checkWin() {
+            var winConditions = [
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9],
+                [1, 4, 7],
+                [2, 5, 8],
+                [3, 6, 9],
+                [1, 5, 9],
+                [3, 5, 7]
+            ];
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            count = 1;
+            for (var i = 1; i <= 9; i++) {
+                document.getElementById(i).innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

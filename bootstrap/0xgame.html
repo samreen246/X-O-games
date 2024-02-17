@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+        .cell{
+            border: 1px solid black;
+            height: 140px;
+        }
+        .row{
+            font-size: 80px;
+            text-align: center;
+            padding-top: 40px;
+        }
+    </style>
+</head>
+<body class="bg-info">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">&nbsp</div>
+            <div class="col-lg-4">
+                <div class="row mx-2">
+                    <div class="col-lg-4 col-4 cell" id="1" onclick="getdetails('1')"></div>
+                    <div class="col-lg-4 col-4 cell" id="2" onclick="getdetails('2')"></div>
+                    <div class="col-lg-4 col-4 cell" id="3" onclick="getdetails('3')" ></div>
+                    <div class="col-lg-4 col-4 cell" id="4" onclick="getdetails('4')"></div>
+                    <div class="col-lg-4 col-4 cell" id="5" onclick="getdetails('5')"></div>
+                    <div class="col-lg-4 col-4 cell" id="6" onclick="getdetails('6')"></div>
+                    <div class="col-lg-4 col-4 cell" id="7" onclick="getdetails('7')"></div>
+                    <div class="col-lg-4 col-4 cell" id="8" onclick="getdetails('8')"></div>
+                    <div class="col-lg-4 col-4 cell" id="9" onclick="getdetails('9')"></div>
+                </div>
+            </div>
+            <div class="col-lg-4">&nbsp</div>
+        </div>
+    </div>
+
+    <script>
+        var count=1
+        function getdetails(myid){
+            if(document.getElementById(myid).innerHTML==""){
+                if(count%2==0){
+                    document.getElementById(myid).innerHTML="x"
+                }
+                else{
+                    document.getElementById(myid).innerHTML="o"
+                }
+                count++
+            }
+            else{
+                alert('not empty')
+            }
+
+            var a = checkrow1()
+            var b = checkrow2()
+            var c = checkrow3()
+            var d = checkcol1()
+            var e = checkcol2()
+            var f = checkcol3()
+            var g = checkdag1()
+            var h = checkdag2()
+            if(a){
+                alert('winrow1')
+            }
+            if(b){
+                alert('winrow2')
+            }
+            if(c){
+                alert('winrow3')
+            }
+            if(d){
+                alert('wincol1')
+            }
+            if(e){
+                alert('wincol2')
+            }
+            if(f){
+                alert('wincol3')
+            }
+            if(g){
+                alert('windag1')
+            }
+            if(h){
+                alert('windag2')
+            }
+        }
+
+        function checkrow1(){
+            var a = document.getElementById('1').innerHTML
+            var b = document.getElementById('2').innerHTML
+            var c = document.getElementById('3').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }   
+        }
+
+        function checkrow2(){
+            var d = document.getElementById('4').innerHTML
+            var e = document.getElementById('5').innerHTML
+            var f = document.getElementById('6').innerHTML
+            if(d=='x' && e=='x' && f=='x' || d=='o' && e=='o' && f=='o'){
+                return true
+            }
+            else{
+                return false
+            }
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            } 
+        }
+
+        function checkrow3(){
+            var g = document.getElementById('7').innerHTML
+            var h = document.getElementById('8').innerHTML
+            var i = document.getElementById('9').innerHTML
+            if(g=='x' && h=='x' && i=='x' || g=='o' && h=='o' && i=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function checkcol1(){
+            var a = document.getElementById('1').innerHTML
+            var b = document.getElementById('4').innerHTML
+            var c = document.getElementById('7').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function checkcol2(){
+            var a = document.getElementById('2').innerHTML
+            var b = document.getElementById('5').innerHTML
+            var c = document.getElementById('8').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function checkcol3(){
+            var a = document.getElementById('3').innerHTML
+            var b = document.getElementById('6').innerHTML
+            var c = document.getElementById('9').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function checkdag1(){
+            var a = document.getElementById('1').innerHTML
+            var b = document.getElementById('5').innerHTML
+            var c = document.getElementById('9').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            }
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function checkdag2(){
+            var a = document.getElementById('3').innerHTML
+            var b = document.getElementById('5').innerHTML
+            var c = document.getElementById('7').innerHTML
+            if(a=='x' && b=='x' && c=='x' || a=='o' && b=='o' && c=='o'){
+                return true
+            }
+            else{
+                return false
+            } 
+            for (var i = 0; i < winConditions.length; i++) {
+                var a = document.getElementById(winConditions[i][0]).innerHTML;
+                var b = document.getElementById(winConditions[i][1]).innerHTML;
+                var c = document.getElementById(winConditions[i][2]).innerHTML;
+                if (a != "" && a === b && b === c) {
+                    alert(a + ' wins!');
+                    resetGame();
+                    return;
+                }
+            }
+            if (count > 9) {
+                alert("It's a draw!");
+                resetGame();
+            }
+        }
+
+        function resetGame() {
+            count = 1;
+            for (var i = 1; i <= 9; i++) {
+                document.getElementById(i).innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
