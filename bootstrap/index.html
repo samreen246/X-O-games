@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,22 +12,53 @@
       crossorigin="anonymous"
     />
     <style>
-        .cell{
+        .cell {
             border: 1px solid black;
             height: 140px;
-        }
-        .row{
+            position: relative;
             font-size: 80px;
             text-align: center;
-            padding-top: 60px;
+            line-height: 140px;
+            background-color: silver;
+        }
+        .winning-line {
+            position: absolute;
+            background-color: rgb(114, 112, 112);
+            z-index: 1;
+        }
+        .horizontal {
+            height: 5px;
+            width: 100%;
+            top: 50%;
+            left: 0;
+        }
+        .vertical {
+            width: 5px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+        }
+        .diagonal-1 {
+            width: 140%;
+            height: 5px;
+            top: 50%;
+            left: -20%;
+            transform: rotate(45deg);
+        }
+        .diagonal-2 {
+            width: 140%;
+            height: 5px;
+            top: 50%;
+            left: -20%;
+            transform: rotate(-45deg);
         }
     </style>
 </head>
-<body class="bg-info">
+<body class="mt-5 bg-success">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4">&nbsp</div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">&nbsp</div>
+            <div class="col-lg-6">
                 <div class="row mx-2">
                     <div class="col-lg-4 col-4 cell" id="1" onclick="getdetails('1')"></div>
                     <div class="col-lg-4 col-4 cell" id="2" onclick="getdetails('2')"></div>
@@ -40,59 +71,75 @@
                     <div class="col-lg-4 col-4 cell" id="9" onclick="getdetails('9')"></div>
                 </div>
             </div>
-            <div class="col-lg-4">&nbsp</div>
+            <div class="col-lg-3">&nbsp</div>
         </div>
     </div>
 
     <script>
-        var count=1
-        function getdetails(myid){
-            if(document.getElementById(myid).innerHTML==""){
-                if(count%2==0){
-                    document.getElementById(myid).innerHTML="x"
-                }
-                else{
-                    document.getElementById(myid).innerHTML="o"
-                }
-                count++
+        var count = 1;
+
+        function getdetails(myid) {
+            if (document.getElementById(myid).innerHTML == "") {
+                document.getElementById(myid).innerHTML = count % 2 == 0 ? "X" : "O";
+                count++;
                 checkWin();
-            }
-            else{
-                alert('not empty')
+            } else {
+                alert("Cell is not empty");
             }
         }
 
         function checkWin() {
             var winConditions = [
-                [1, 2, 3],
-                [4, 5, 6],
-                [7, 8, 9],
-                [1, 4, 7],
-                [2, 5, 8],
-                [3, 6, 9],
-                [1, 5, 9],
-                [3, 5, 7]
+                [1, 2, 3, 'horizontal'], // Top row
+                [4, 5, 6, 'horizontal'], // Middle row
+                [7, 8, 9, 'horizontal'], // Bottom row
+                [1, 4, 7, 'vertical'],   // Left column
+                [2, 5, 8, 'vertical'],   // Middle column
+                [3, 6, 9, 'vertical'],   // Right column
+                [1, 5, 9, 'diagonal-1'], // Diagonal top-left to bottom-right
+                [3, 5, 7, 'diagonal-2']  // Diagonal top-right to bottom-left
             ];
+
             for (var i = 0; i < winConditions.length; i++) {
                 var a = document.getElementById(winConditions[i][0]).innerHTML;
                 var b = document.getElementById(winConditions[i][1]).innerHTML;
                 var c = document.getElementById(winConditions[i][2]).innerHTML;
-                if (a != "" && a === b && b === c) {
-                    alert(a + ' wins!');
-                    resetGame();
+
+                if (a !== "" && a === b && b === c) {
+                    drawLine(winConditions[i]);
+                    setTimeout(() => {
+                        alert(a + " wins!");
+                        resetGame();
+                    }, 500); // Delay to show the line
                     return;
                 }
             }
+
             if (count > 9) {
                 alert("It's a draw!");
                 resetGame();
             }
         }
 
+        function drawLine(condition) {
+            var cells = condition.slice(0, 3);
+            var lineType = condition[3];
+
+            // Add the line to each winning cell
+            cells.forEach(cellId => {
+                var cell = document.getElementById(cellId);
+                var line = document.createElement("div");
+                line.classList.add("winning-line", lineType);
+                cell.appendChild(line);
+            });
+        }
+
         function resetGame() {
             count = 1;
             for (var i = 1; i <= 9; i++) {
-                document.getElementById(i).innerHTML = "";
+                var cell = document.getElementById(i);
+                cell.innerHTML = ""; // Clear content
+                cell.querySelectorAll(".winning-line").forEach(line => line.remove()); // Remove line
             }
         }
     </script>
